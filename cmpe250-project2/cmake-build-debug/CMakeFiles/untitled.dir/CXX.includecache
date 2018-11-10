@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/Emre_Ayberk/CLionProjects/untitled/Luggage.cpp
+Luggage.h
+/cygdrive/c/Users/Emre_Ayberk/CLionProjects/untitled/Luggage.h
+Passanger.h
+/cygdrive/c/Users/Emre_Ayberk/CLionProjects/untitled/Passanger.h
+
+/cygdrive/c/Users/Emre_Ayberk/CLionProjects/untitled/Luggage.h
+Passanger.h
+/cygdrive/c/Users/Emre_Ayberk/CLionProjects/untitled/Passanger.h
+
+/cygdrive/c/Users/Emre_Ayberk/CLionProjects/untitled/Passanger.h
+
+/cygdrive/c/Users/Emre_Ayberk/CLionProjects/untitled/Security.h
+
+/cygdrive/c/Users/Emre_Ayberk/CLionProjects/untitled/main.cpp
+iostream
+-
+queue
+-
+iterator
+-
+fstream
+-
+algorithm
+-
+Passanger.h
+/cygdrive/c/Users/Emre_Ayberk/CLionProjects/untitled/Passanger.h
+Luggage.h
+/cygdrive/c/Users/Emre_Ayberk/CLionProjects/untitled/Luggage.h
+Security.h
+/cygdrive/c/Users/Emre_Ayberk/CLionProjects/untitled/Security.h
+
