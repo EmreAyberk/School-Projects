@@ -87,6 +87,33 @@ void Sec_q(vector <Passanger> Psg_sec, Passanger p, vector <Security> sec, int s
 }
 
 
+// SEND PASSANGER FROM luggage TO security
+
+void Lugg2Sec(vector <Passanger> Psg_sec, vector <Luggage> lug, vector <Security> sec, int l_size, int s_size)
+{
+    bool set=false;
+    for (int i = 0; i < l_size; i++) {
+        if(lug[i].pastTime==lug[i].x.luggage_time)
+        {
+            for(int j=0;j<s_size;j++)
+            {
+                if(sec[j].isEmpty)
+                {
+                    sec[j].x=lug[i].x;
+                    set= true;
+                }
+            }
+            if(!set)
+            {
+                Psg_sec.push_back(lug[i].x);
+            }
+            lug[i].x= *new Passanger();
+        }
+    }
+}
+
+
+
 
 
 
