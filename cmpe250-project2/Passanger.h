@@ -15,7 +15,11 @@ public:
 
     double luggage_time;
 
+    double luggage_arrive;
+
     double security_time;
+
+    double security_arrive;
 
     double total_waiting_time;
 

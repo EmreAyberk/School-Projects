@@ -10,15 +10,14 @@
 class Security {
 public:
 
-    bool isEmpty;
-
     double pastTime;
 
-    Passanger *x;
+    Passanger *passanger;
+    bool isEmpty();
 
     Security();
 
-    Security(double pastTime, Passanger *x);
+    Security(double pastTime, Passanger *passanger);
 
     ~Security();
 

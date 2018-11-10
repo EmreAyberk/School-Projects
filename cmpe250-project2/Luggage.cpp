@@ -6,16 +6,18 @@
 
 
 Luggage::Luggage() {
-    this->isEmpty=false;
     this->pastTime=0;
 
 }
 
-Luggage::Luggage(double pastTime, Passanger *x) {
+Luggage::Luggage(double pastTime, Passanger *passanger) {
     this->pastTime=pastTime;
-    this->isEmpty=isEmpty;
-    this->x = x;
+    this->passanger = passanger;
 
+}
+
+bool Luggage::isEmpty() {
+return this->passanger = nullptr;
 }
 
 Luggage::~Luggage() {

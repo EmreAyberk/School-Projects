@@ -7,13 +7,17 @@
 
 Security::Security() {
     this->pastTime=0;
-    this->isEmpty=false;
+
 }
 
 Security::Security(double pastTime, Passanger *x) {
     this->pastTime=pastTime;
-    this->isEmpty=isEmpty;
-    this->x= x;
+    this->passanger = passanger;
+}
+
+
+bool Security::isEmpty(){
+    return this->passanger = nullptr;
 }
 
 Security::~Security() {

@@ -11,21 +11,25 @@
 class Luggage{
 public:
 
-    bool isEmpty;
 
     double pastTime;
 
-    Passanger *x;
+    Passanger *passanger;
 
+    
+    bool isEmpty();
 
     Luggage();
 
-    Luggage(double pastTime,Passanger *x);
+    Luggage(double pastTime, Passanger *passanger);
 
     ~Luggage();
 
 
+
+
 };
+
 
 
 #endif //UNTITLED_LUGGAGE_H

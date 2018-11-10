@@ -3,14 +3,16 @@
 #include <iterator>
 #include <fstream>
 #include <algorithm>
+#include <functional>
 
 #include "Passanger.h"
 #include "Luggage.h"
 #include "Security.h"
+#include "Event.h"
 
 using namespace std;
 
-
+/*
 
 // check queue funcs
 int checklug(vector<Luggage*> x,int size)
@@ -112,8 +114,44 @@ void Lugg2Sec(vector <Passanger*> Psg_sec, vector <Luggage*> lug, vector <Securi
     }
 }
 
+*/
+
+bool flightPriority = false;
+bool vipTicket = false;
+bool onlineTicket = false;
+
+bool compareEvents(const Event* e1, const Event* e2) {
+    return e1->time > e2->time;
+}
+
+bool compareLuggages(const Passanger* p1, const Passanger* p2) {
+    if (flightPriority) {
+        return p1->flight_time> p2->flight_time;
+    } else {
+        return p1->luggage_arrive > p2->luggage_arrive;
+    }
+}
+
+bool compareSecurity(const Passanger* p1, const Passanger* p2) {
+    if (flightPriority) {
+        return p1->flight_time> p2->flight_time;
+    } else {
+        return p1->security_arrive > p2->security_arrive;
+    }
+}
+
+double global_time = 0;
+
+priority_queue<Event *, vector<Event *>, function<bool(Event *, Event *)>> event_queue(compareEvents);
+
+priority_queue<Passanger *, vector<Passanger *>, function<bool(Passanger *, Passanger *)>> luggage_queue(compareLuggages);
+
+priority_queue<Passanger *, vector<Passanger *>, function<bool(Passanger *, Passanger *)>> security_queue(compareSecurity);
 
 
+vector<Passanger*> passengers;
+vector<Luggage*> luggages;
+vector<Security*> securities;
 
 
 
@@ -128,7 +166,7 @@ int main()
 
     int numofsec;
 
-    int time=0;
+    int P_time=0;
 
     input >> numofpas;
 
@@ -143,36 +181,187 @@ int main()
         int a, b, c, d;
         char e, f;
         input >> a >> b >> c >> d >> e >> f;
-        psg[i] = Passanger(a, b, c, d, e=='V', f=='L');
+        passengers.push_back(new Passanger(a, b, c, d, e=='V', f=='L'));
 
     }
 
-
-    Luggage lgg[numoflug];
     for(int i=0; i<numoflug;i++)
     {
-        lgg[i]= *new Luggage;
+        luggages.push_back(new Luggage);
     }
 
-
-    Security scr[numofsec];
     for(int i=0; i<numoflug;i++)
     {
-        scr[i]= *new Security;
+        securities.push_back(new Security);
+    }
+
+    for (int i = 0; i < numofpas; i++) {
+        event_queue.push(new Event(passengers[i], 0, passengers[i]->arrive_time));
+    }
+
+    double total = 0;
+
+    int counter;
+    double avg[8];
+    int missed[8];
+
+    for (int x = 1; x <9 ; x++) {
+        switch (x){
+            case 1:{
+                flightPriority = false;
+                vipTicket = false;
+                onlineTicket = false;
+            }
+            case 2:{
+                flightPriority = true;
+                vipTicket = false;
+                onlineTicket = false;
+            }
+            case 3:{
+                flightPriority = false;
+                vipTicket = true;
+                onlineTicket = false;
+            }
+            case 4:{
+                flightPriority = true;
+                vipTicket = true;
+                onlineTicket = false;
+            }
+            case 5:{
+                flightPriority = false;
+                vipTicket = false;
+                onlineTicket = true;
+            }
+            case 6:{
+                flightPriority = true;
+                vipTicket = false;
+                onlineTicket = true;
+            }
+            case 7:{
+                flightPriority = false;
+                vipTicket = true;
+                onlineTicket = true;
+            }
+            case 8:{
+                flightPriority = true;
+                vipTicket = true;
+                onlineTicket = true;
+            }
+        }
+
+
+    while (!event_queue.empty()) {
+        counter=0;
+        Event* event = event_queue.top();
+        event_queue.pop();
+
+        if (event->type == 0) { // Arrival
+            if (onlineTicket && event->passanger->online_ticket) { // bypass luggage
+                event_queue.push( new Event(event->passanger, 1, event->time) );
+            } else {
+                bool entered = false;
+                for (int i = 0; i < luggages.size(); i++) {
+                    if (luggages[i]->isEmpty()) {
+                        luggages[i]->passanger = event->passanger; // set passenger
+                        event_queue.push( new Event(event->passanger, 1, event->time + event->passanger->luggage_time) ); // Luggage exit event
+                        entered = true; // Entered luggage
+                        break;
+                    }
+                }
+
+                if (!entered) { // Luggage wait queue
+                    event->passanger->luggage_arrive = event->time;
+                    luggage_queue.push(event->passanger);
+                }
+            }
+        } else if (event->type == 1) { // Luggage exit
+            for (int i = 0; i < luggages.size(); i++) {
+                if (event->passanger == luggages[i]->passanger) {
+                    luggages[i]->passanger = nullptr;
+
+                    if (!luggage_queue.empty()) {
+                        Passanger* passanger = luggage_queue.top();
+                        luggage_queue.pop();
+
+                        luggages[i]->passanger = passanger; // assign new passenger
+                        event_queue.push( new Event(passanger, 1, event->time + passanger->luggage_time) ); // Luggage exit event
+                    }
+                    break;
+                }
+            }
+
+            if (vipTicket && event->passanger->vip) { // bypass security
+                event->passanger->total_waiting_time = event->time-event->passanger->arrive_time;
+                avg[x]+=event->passanger->total_waiting_time;
+                if(event->passanger->total_waiting_time-event->passanger->flight_time<0){
+                    counter++;
+                }
+
+                event_queue.push(  new Event(event->passanger, 2, event->time) );
+            } else {
+                bool entered = false;
+                for (int i = 0; i < securities.size(); i++) {
+                    if (securities[i]->isEmpty()) {
+                        securities[i]->passanger = event->passanger;
+                        event_queue.push( new Event(event->passanger, 2, event->time + event->passanger->security_time) );
+                        entered = true;
+                        break;
+                    }
+                }
+
+                if (!entered) {
+                    event->passanger->security_arrive = event->time;
+                    security_queue.push(event->passanger);
+                }
+            }
+
+        } else if (event->type == 2) { // Security exit
+            for(int i=0;i< securities.size();i++) {
+                if(event->passanger == securities[i]->passanger)
+                {
+                    securities[i]->passanger= nullptr;
+                    if(!security_queue.empty())
+                    {
+
+                        Passanger* passanger = security_queue.top();
+                        security_queue.pop();
+
+                        securities[i]->passanger=passanger;//assign new passenger
+                        event_queue.push(new Event(passanger,0,event->time+passanger->security_time) ); // Security exit evet
+
+                        total += event->time - event->passanger->arrive_time+ passanger->security_time;
+                        avg[x]+=total;
+
+
+                    }
+                    break;
+                }
+            }
+
+
+
+
+        }
+
+        missed[x]=counter;
+    }
+
     }
 
 
-
-
-
-
-    for(int i=0;i<numofpas;i++)
-    {
-        psg[i].showInfo();
-    }
+for(int i=1; i<9;i++)
+{
+    cout<<avg[i]<< ' ' << missed[i];
+}
 
     return 0;
 }
 
+// YARIN:
+
+// SECURITY QUEUEDA ELEMAN VARSA SECURITY SOK ~~done
+// SECURITYDEN ÇIKAR ~~done
+// İSTATİSTİK TOPLA
+// AYRI CASELER İÇİN DENE ~~done
 
 
