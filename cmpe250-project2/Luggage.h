@@ -15,7 +15,8 @@ public:
 
     double pastTime;
 
-    Passanger x[20];
+    Passanger x;
+
 
     Luggage();
 

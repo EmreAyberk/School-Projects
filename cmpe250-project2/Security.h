@@ -5,6 +5,7 @@
 #ifndef UNTITLED_SECURITY_H
 #define UNTITLED_SECURITY_H
 
+#include "Passanger.h"
 
 class Security {
 public:
@@ -13,9 +14,11 @@ public:
 
     double pastTime;
 
+    Passanger x;
+
     Security();
 
-    Security(double pastTime);
+    Security(double pastTime, Passanger x);
 
     ~Security();
 

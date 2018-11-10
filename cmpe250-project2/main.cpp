@@ -12,8 +12,8 @@ using namespace std;
 
 
 
-// Add queue func
-int checklug(Luggage x[],int size)
+// check queue func
+int checklug(vector<Luggage> x,int size)
 {
     int counter=0;
 
@@ -31,7 +31,7 @@ int checklug(Luggage x[],int size)
     } else return full;
 }
 
-int chechsec(Security x[], int size)
+int chechsec(vector <Security> x, int size)
 {
     int counter=0;
 
@@ -49,22 +49,41 @@ int chechsec(Security x[], int size)
     } else return full;
 
 }
-// end of Add queue
+// end of check queue
 
 
-
-
-void Lugg_q(vector<Passanger> lug ,Passanger p,Luggage l[], int p_size, int l_size)
+//add que according to check result. LUGGAGE
+void Lug_q(vector<Passanger> Psg_lug ,Passanger p, vector <Luggage> lug, int l_size)
 {
-
-    if(checklug(l,l_size)==1)
+    if(checklug(lug,l_size)==1)
     {
-        lug.push_back(p);
+        Psg_lug.push_back(p);
     } else{
-
+        for(int i=0;i<l_size;i++)
+        {
+            if(lug[i].isEmpty)
+            {
+                lug[i].x=p;
+            }
+        }
     }
+}
 
-
+//add que according to check result. SECURITY
+void Sec_q(vector <Passanger> Psg_sec, Passanger p, vector <Security> sec, int s_size)
+{
+    if(chechsec(sec,s_size))
+    {
+        Psg_sec.push_back(p);
+    } else{
+        for(int i=0; i<s_size; i++)
+        {
+            if(sec[i].isEmpty)
+            {
+                sec[i].x=p;
+            }
+        }
+    }
 }
 
 

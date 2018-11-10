@@ -3,7 +3,7 @@
 //
 
 #include "Luggage.h"
-#include "Passanger.h"
+
 
 Luggage::Luggage() {
     this->isEmpty=false;
@@ -11,9 +11,10 @@ Luggage::Luggage() {
 
 }
 
-Luggage::Luggage(double pastTimei, Passanger x) {
+Luggage::Luggage(double pastTime, Passanger x) {
     this->pastTime=pastTime;
     this->isEmpty=isEmpty;
+    this->x = x;
 
 }
 
