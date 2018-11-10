@@ -105,9 +105,9 @@ void Lugg2Sec(vector <Passanger*> Psg_sec, vector <Luggage*> lug, vector <Securi
             }
             if(!set)
             {
-                Psg_sec.push_back(lug[i].x);
+                Psg_sec.push_back(lug[i]->x);
             }
-            lug[i]->x= Passanger();
+            lug[i]->x= NULL;
         }
     }
 }
