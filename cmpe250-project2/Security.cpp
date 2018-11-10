@@ -10,10 +10,10 @@ Security::Security() {
     this->isEmpty=false;
 }
 
-Security::Security(double pastTime, Passanger x) {
+Security::Security(double pastTime, Passanger *x) {
     this->pastTime=pastTime;
     this->isEmpty=isEmpty;
-    this->x= x;
+    this->x= *x;
 }
 
 Security::~Security() {

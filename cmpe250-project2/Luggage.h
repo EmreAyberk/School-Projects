@@ -15,12 +15,12 @@ public:
 
     double pastTime;
 
-    Passanger x;
+    Passanger *x;
 
 
     Luggage();
 
-    Luggage(double pastTime,Passanger x);
+    Luggage(double pastTime,Passanger *x);
 
     ~Luggage();
 

@@ -14,11 +14,11 @@ public:
 
     double pastTime;
 
-    Passanger x;
+    Passanger *x;
 
     Security();
 
-    Security(double pastTime, Passanger x);
+    Security(double pastTime, Passanger *x);
 
     ~Security();
 

@@ -11,10 +11,10 @@ Luggage::Luggage() {
 
 }
 
-Luggage::Luggage(double pastTime, Passanger x) {
+Luggage::Luggage(double pastTime, Passanger *x) {
     this->pastTime=pastTime;
     this->isEmpty=isEmpty;
-    this->x = x;
+    this->x = *x;
 
 }
 

@@ -12,15 +12,15 @@ using namespace std;
 
 
 
-// check queue func
-int checklug(vector<Luggage> x,int size)
+// check queue funcs
+int checklug(vector<Luggage*> x,int size)
 {
     int counter=0;
 
     bool full=false;
     for(int i=0;i<size;i++)
     {
-        if(!x[i].isEmpty)
+        if(!x[i]->isEmpty)
         {
             counter++;
         }
@@ -31,14 +31,14 @@ int checklug(vector<Luggage> x,int size)
     } else return full;
 }
 
-int chechsec(vector <Security> x, int size)
+int chechsec(vector <Security*> x, int size)
 {
     int counter=0;
 
     bool full=false;
     for(int i=0;i<size;i++)
     {
-        if(!x[i].isEmpty)
+        if(!x[i]->isEmpty)
         {
             counter++;
         }
@@ -53,7 +53,7 @@ int chechsec(vector <Security> x, int size)
 
 
 //add que according to check result. LUGGAGE
-void Lug_q(vector<Passanger> Psg_lug ,Passanger p, vector <Luggage> lug, int l_size)
+void Lug_q(vector<Passanger*> Psg_lug ,Passanger *p, vector <Luggage*> lug, int l_size)
 {
     if(checklug(lug,l_size)==1)
     {
@@ -61,16 +61,16 @@ void Lug_q(vector<Passanger> Psg_lug ,Passanger p, vector <Luggage> lug, int l_s
     } else{
         for(int i=0;i<l_size;i++)
         {
-            if(lug[i].isEmpty)
+            if(lug[i]->isEmpty)
             {
-                lug[i].x=p;
+                lug[i]->x=p;
             }
         }
     }
 }
 
 //add que according to check result. SECURITY
-void Sec_q(vector <Passanger> Psg_sec, Passanger p, vector <Security> sec, int s_size)
+void Sec_q(vector <Passanger*> Psg_sec, Passanger *p, vector <Security*> sec, int s_size)
 {
     if(chechsec(sec,s_size))
     {
@@ -78,9 +78,9 @@ void Sec_q(vector <Passanger> Psg_sec, Passanger p, vector <Security> sec, int s
     } else{
         for(int i=0; i<s_size; i++)
         {
-            if(sec[i].isEmpty)
+            if(sec[i]->isEmpty)
             {
-                sec[i].x=p;
+                sec[i]->x=p;
             }
         }
     }
@@ -89,17 +89,17 @@ void Sec_q(vector <Passanger> Psg_sec, Passanger p, vector <Security> sec, int s
 
 // SEND PASSANGER FROM luggage TO security
 
-void Lugg2Sec(vector <Passanger> Psg_sec, vector <Luggage> lug, vector <Security> sec, int l_size, int s_size)
+void Lugg2Sec(vector <Passanger*> Psg_sec, vector <Luggage*> lug, vector <Security*> sec, int l_size, int s_size)
 {
     bool set=false;
     for (int i = 0; i < l_size; i++) {
-        if(lug[i].pastTime==lug[i].x.luggage_time)
+        if(lug[i]->pastTime==lug[i]->x->luggage_time)
         {
             for(int j=0;j<s_size;j++)
             {
-                if(sec[j].isEmpty)
+                if(sec[j]->isEmpty)
                 {
-                    sec[j].x=lug[i].x;
+                    sec[j]->x=lug[i]->x;
                     set= true;
                 }
             }
@@ -107,7 +107,7 @@ void Lugg2Sec(vector <Passanger> Psg_sec, vector <Luggage> lug, vector <Security
             {
                 Psg_sec.push_back(lug[i].x);
             }
-            lug[i].x= *new Passanger();
+            lug[i]->x= Passanger();
         }
     }
 }
@@ -143,7 +143,7 @@ int main()
         int a, b, c, d;
         char e, f;
         input >> a >> b >> c >> d >> e >> f;
-        psg[i] = *new Passanger(a, b, c, d, e=='V', f=='L');
+        psg[i] = Passanger(a, b, c, d, e=='V', f=='L');
 
     }
 
