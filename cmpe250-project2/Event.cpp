@@ -10,7 +10,7 @@ Event::Event() {
     this->time=0;
 }
 
-Event::Event(Passanger* passanger, int type, double time){
+Event::Event(Passanger* passanger, int type, int time){
     this->passanger=passanger;
     this->type=type;
     this->time=time;

@@ -12,11 +12,11 @@ public:
 
     Passanger* passanger;
     int type; // 0 -> Arrival, 1 -> Luggage Exit, 2 -> Security Exit
-    double time;
+    int time;
 
     Event();
 
-    Event(Passanger* passanger, int type, double time);
+    Event(Passanger* passanger, int type, int time);
 
     ~Event();
 };

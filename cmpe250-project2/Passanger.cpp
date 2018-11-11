@@ -17,7 +17,7 @@ Passanger::Passanger() {
 }
 
 
-Passanger::Passanger(double arrive_time, double flight_time, double luggage_time, double security_time, bool vip, bool online_ticket) {
+Passanger::Passanger(int arrive_time, int flight_time, int luggage_time, int security_time, bool vip, bool online_ticket) {
     this->arrive_time=arrive_time;
     this->flight_time=flight_time;
     this->luggage_time=luggage_time;

@@ -9,17 +9,17 @@
 class Passanger {
 public:
 
-    double arrive_time;
+    int arrive_time;
 
-    double flight_time;
+    int flight_time;
 
-    double luggage_time;
+    int luggage_time;
 
-    double luggage_arrive;
+    int luggage_arrive;
 
-    double security_time;
+    int security_time;
 
-    double security_arrive;
+    int security_arrive;
 
     double total_waiting_time;
 
@@ -29,7 +29,7 @@ public:
 
     Passanger();
 
-    Passanger(double arrive_time, double flight_time, double luggage_time, double security_time, bool vip, bool online_ticket);
+    Passanger(int arrive_time, int flight_time, int luggage_time, int security_time, bool vip, bool online_ticket);
 
     void showInfo();
 

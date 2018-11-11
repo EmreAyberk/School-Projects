@@ -123,6 +123,33 @@ untitled/fast:
 	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/build
 .PHONY : untitled/fast
 
+Event.o: Event.cpp.o
+
+.PHONY : Event.o
+
+# target to build an object file
+Event.cpp.o:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Event.cpp.o
+.PHONY : Event.cpp.o
+
+Event.i: Event.cpp.i
+
+.PHONY : Event.i
+
+# target to preprocess a source file
+Event.cpp.i:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Event.cpp.i
+.PHONY : Event.cpp.i
+
+Event.s: Event.cpp.s
+
+.PHONY : Event.s
+
+# target to generate assembly for a file
+Event.cpp.s:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Event.cpp.s
+.PHONY : Event.cpp.s
+
 Luggage.o: Luggage.cpp.o
 
 .PHONY : Luggage.o
@@ -240,6 +267,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... untitled"
 	@echo "... edit_cache"
+	@echo "... Event.o"
+	@echo "... Event.i"
+	@echo "... Event.s"
 	@echo "... Luggage.o"
 	@echo "... Luggage.i"
 	@echo "... Luggage.s"

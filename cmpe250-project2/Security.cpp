@@ -10,7 +10,7 @@ Security::Security() {
 
 }
 
-Security::Security(double pastTime, Passanger *x) {
+Security::Security(double pastTime, Passanger *passanger) {
     this->pastTime=pastTime;
     this->passanger = passanger;
 }

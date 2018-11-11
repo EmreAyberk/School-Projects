@@ -12,109 +12,7 @@
 
 using namespace std;
 
-/*
 
-// check queue funcs
-int checklug(vector<Luggage*> x,int size)
-{
-    int counter=0;
-
-    bool full=false;
-    for(int i=0;i<size;i++)
-    {
-        if(!x[i]->isEmpty)
-        {
-            counter++;
-        }
-    }
-
-    if(counter==size) {
-        return full= true;
-    } else return full;
-}
-
-int chechsec(vector <Security*> x, int size)
-{
-    int counter=0;
-
-    bool full=false;
-    for(int i=0;i<size;i++)
-    {
-        if(!x[i]->isEmpty)
-        {
-            counter++;
-        }
-    }
-
-    if(counter==size) {
-        return full= true;
-    } else return full;
-
-}
-// end of check queue
-
-
-//add que according to check result. LUGGAGE
-void Lug_q(vector<Passanger*> Psg_lug ,Passanger *p, vector <Luggage*> lug, int l_size)
-{
-    if(checklug(lug,l_size)==1)
-    {
-        Psg_lug.push_back(p);
-    } else{
-        for(int i=0;i<l_size;i++)
-        {
-            if(lug[i]->isEmpty)
-            {
-                lug[i]->x=p;
-            }
-        }
-    }
-}
-
-//add que according to check result. SECURITY
-void Sec_q(vector <Passanger*> Psg_sec, Passanger *p, vector <Security*> sec, int s_size)
-{
-    if(chechsec(sec,s_size))
-    {
-        Psg_sec.push_back(p);
-    } else{
-        for(int i=0; i<s_size; i++)
-        {
-            if(sec[i]->isEmpty)
-            {
-                sec[i]->x=p;
-            }
-        }
-    }
-}
-
-
-// SEND PASSANGER FROM luggage TO security
-
-void Lugg2Sec(vector <Passanger*> Psg_sec, vector <Luggage*> lug, vector <Security*> sec, int l_size, int s_size)
-{
-    bool set=false;
-    for (int i = 0; i < l_size; i++) {
-        if(lug[i]->pastTime==lug[i]->x->luggage_time)
-        {
-            for(int j=0;j<s_size;j++)
-            {
-                if(sec[j]->isEmpty)
-                {
-                    sec[j]->x=lug[i]->x;
-                    set= true;
-                }
-            }
-            if(!set)
-            {
-                Psg_sec.push_back(lug[i]->x);
-            }
-            lug[i]->x= NULL;
-        }
-    }
-}
-
-*/
 
 bool flightPriority = false;
 bool vipTicket = false;
@@ -140,7 +38,7 @@ bool compareSecurity(const Passanger* p1, const Passanger* p2) {
     }
 }
 
-double global_time = 0;
+
 
 priority_queue<Event *, vector<Event *>, function<bool(Event *, Event *)>> event_queue(compareEvents);
 
@@ -166,15 +64,13 @@ int main()
 
     int numofsec;
 
-    int P_time=0;
+
 
     input >> numofpas;
 
     input >> numoflug;
 
     input >> numofsec;
-
-    Passanger psg[numofpas];
 
     for(int i=0; i<numofpas;i++)
     {
@@ -195,54 +91,57 @@ int main()
         securities.push_back(new Security);
     }
 
-    for (int i = 0; i < numofpas; i++) {
-        event_queue.push(new Event(passengers[i], 0, passengers[i]->arrive_time));
-    }
 
-    double total = 0;
+
 
     int counter;
-    double avg[8];
+    float avg[8];
     int missed[8];
 
-    for (int x = 1; x <9 ; x++) {
+    for (int x = 0; x <8 ; x++) {
+        counter=0;
+
+        for (int i = 0; i < numofpas; i++) {
+           event_queue.push(new Event(passengers[i], 0, passengers[i]->arrive_time));
+        }
+
         switch (x){
-            case 1:{
+            case 0:{
                 flightPriority = false;
+                vipTicket = false;
+                onlineTicket = false;
+            }
+            case 1:{
+                flightPriority = true;
                 vipTicket = false;
                 onlineTicket = false;
             }
             case 2:{
-                flightPriority = true;
-                vipTicket = false;
+                flightPriority = false;
+                vipTicket = true;
                 onlineTicket = false;
             }
             case 3:{
-                flightPriority = false;
+                flightPriority = true;
                 vipTicket = true;
                 onlineTicket = false;
             }
             case 4:{
-                flightPriority = true;
-                vipTicket = true;
-                onlineTicket = false;
+                flightPriority = false;
+                vipTicket = false;
+                onlineTicket = true;
             }
             case 5:{
-                flightPriority = false;
+                flightPriority = true;
                 vipTicket = false;
                 onlineTicket = true;
             }
             case 6:{
-                flightPriority = true;
-                vipTicket = false;
-                onlineTicket = true;
-            }
-            case 7:{
                 flightPriority = false;
                 vipTicket = true;
                 onlineTicket = true;
             }
-            case 8:{
+            case 7:{
                 flightPriority = true;
                 vipTicket = true;
                 onlineTicket = true;
@@ -251,9 +150,12 @@ int main()
 
 
     while (!event_queue.empty()) {
-        counter=0;
         Event* event = event_queue.top();
+
+      //  cout << event_queue.top()->passanger->arrive_time << ' ';
         event_queue.pop();
+
+
 
         if (event->type == 0) { // Arrival
             if (onlineTicket && event->passanger->online_ticket) { // bypass luggage
@@ -277,7 +179,7 @@ int main()
         } else if (event->type == 1) { // Luggage exit
             for (int i = 0; i < luggages.size(); i++) {
                 if (event->passanger == luggages[i]->passanger) {
-                    luggages[i]->passanger = nullptr;
+                    luggages[i]->passanger = NULL;
 
                     if (!luggage_queue.empty()) {
                         Passanger* passanger = luggage_queue.top();
@@ -292,10 +194,6 @@ int main()
 
             if (vipTicket && event->passanger->vip) { // bypass security
                 event->passanger->total_waiting_time = event->time-event->passanger->arrive_time;
-                avg[x]+=event->passanger->total_waiting_time;
-                if(event->passanger->total_waiting_time-event->passanger->flight_time<0){
-                    counter++;
-                }
 
                 event_queue.push(  new Event(event->passanger, 2, event->time) );
             } else {
@@ -319,7 +217,7 @@ int main()
             for(int i=0;i< securities.size();i++) {
                 if(event->passanger == securities[i]->passanger)
                 {
-                    securities[i]->passanger= nullptr;
+                    securities[i]->passanger= NULL;
                     if(!security_queue.empty())
                     {
 
@@ -327,31 +225,31 @@ int main()
                         security_queue.pop();
 
                         securities[i]->passanger=passanger;//assign new passenger
-                        event_queue.push(new Event(passanger,0,event->time+passanger->security_time) ); // Security exit evet
-
-                        total += event->time - event->passanger->arrive_time+ passanger->security_time;
-                        avg[x]+=total;
-
-
+                        event_queue.push( new Event(passanger, 2, event->time + event->passanger->security_time) );
+                        // SECURITY EXIT EVENT
                     }
                     break;
                 }
+
             }
 
+            event->passanger->total_waiting_time = event->time - event->passanger->arrive_time;
+            avg[x]+=event->passanger->total_waiting_time;
 
-
-
+            if(event->passanger->total_waiting_time-event->passanger->flight_time<0){
+                counter++;
+            }
         }
+        // printf("%d\n", event->time);
 
-        missed[x]=counter;
     }
-
+        missed[x]=counter;
     }
 
 
 for(int i=1; i<9;i++)
 {
-    cout<<avg[i]<< ' ' << missed[i];
+    cout<<(avg[i]/numofpas) << ' ' << missed[i] << endl;
 }
 
     return 0;

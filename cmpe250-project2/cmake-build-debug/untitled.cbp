@@ -80,6 +80,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/cygdrive/c/Users/Emre_Ayberk/CLionProjects/untitled/Event.cpp">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/Emre_Ayberk/CLionProjects/untitled/Event.h">
+			<Option target="untitled"/>
+		</Unit>
 		<Unit filename="/cygdrive/c/Users/Emre_Ayberk/CLionProjects/untitled/Luggage.cpp">
 			<Option target="untitled"/>
 		</Unit>
