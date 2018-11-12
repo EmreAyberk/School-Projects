@@ -7,6 +7,7 @@
 
 Security::Security() {
     this->pastTime=0;
+    this->passanger= nullptr;
 
 }
 
@@ -17,7 +18,7 @@ Security::Security(double pastTime, Passanger *passanger) {
 
 
 bool Security::isEmpty(){
-    return this->passanger = nullptr;
+    return this->passanger == nullptr;
 }
 
 Security::~Security() {

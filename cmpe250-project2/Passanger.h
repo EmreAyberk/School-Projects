@@ -21,7 +21,7 @@ public:
 
     int security_arrive;
 
-    double total_waiting_time;
+    int total_waiting_time;
 
     bool vip;
 

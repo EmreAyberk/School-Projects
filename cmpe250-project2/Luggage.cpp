@@ -7,6 +7,7 @@
 
 Luggage::Luggage() {
     this->pastTime=0;
+    this->passanger= nullptr;
 
 }
 
@@ -17,7 +18,7 @@ Luggage::Luggage(double pastTime, Passanger *passanger) {
 }
 
 bool Luggage::isEmpty() {
-return this->passanger = nullptr;
+return this->passanger == nullptr;
 }
 
 Luggage::~Luggage() {
