@@ -1,0 +1,14 @@
+1. GÜN
+--------------------------------
+
+4. episode u tamamladim. LookonTarget()'i kendim açtim.
+LookonTarget() target null iken hata veriyordu bu nedende target null olmadigi sürece kitlenebilecek sekilde ayarladim.
+
+
+next task:
+turret'i prefabs e tasi.
+ep 8 e kadar bitir.
+
+2. GÜN
+---------------------------------
+7. episode un 17.51 inde kaldim. camera ayarlarini güncelledim. node lara turrent kurmayi güncelledim.
