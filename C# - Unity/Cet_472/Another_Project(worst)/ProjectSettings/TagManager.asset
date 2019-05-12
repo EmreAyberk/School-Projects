@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - a
+  - ab
+  - jellyfish
+  - jelly
+  - potato
+  - potatobasket
+  - star
+  - starfish
+  - erkek
+  - "di\u015Fi"
+  - "\xE7anak"
+  - "ta\xE7"
+  - "\xE7i\xE7ek"
+  - erkekorgan
+  - "di\u015Fiorgan"
+  - "\xE7anakyaprak"
+  - "ta\xE7yaprak"
+  - "\xE7i\xE7ektabla"
+  - memelisepeti
+  - kussepeti
+  - baliksepeti
+  - surungensepeti
+  - kurbagasepeti
+  - memeli
+  - balik
+  - kus
+  - surungen
+  - kurbaga
+  - doguran
+  - yumurtlayan
+  - doguransepeti
+  - yumurtlayansepeti
+  - eseyli
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - living
+  - flower
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
